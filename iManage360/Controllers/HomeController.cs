@@ -27,7 +27,6 @@ namespace iManage360.Controllers
             var prodotti = db.Prodotto.ToList();
             var prodottiCount = prodotti.Count();
 
-            // Modifica qui per includere la proprietà Utente
             var homePageModel = new HomePage
             {
                 Utenti = db.Utente.ToList(),
@@ -75,47 +74,47 @@ namespace iManage360.Controllers
             return RedirectToAction("Login", "Home");
         }
 
-        //public ActionResult Register()
-        //{
-        //    return View();
-        //}
+        public ActionResult Register()
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //public ActionResult Register([Bind(Exclude = "ID_Ruolo")] Utente utente)
-        //{
-        //    if (db.Utente.Any(u => u.Email == utente.Email))
-        //    {
-        //        ViewBag.Errore = "Email già in uso da un altro utente";
-        //        return View();
-        //    }
+        [HttpPost]
+        public ActionResult Register([Bind(Exclude = "ID_Ruolo")] Utente utente)
+        {
+            int utentiPresenti = db.Utente.Count();
 
-        //    // Verifica se esistono utenti nel database
-        //    bool primoUtente = !db.Utente.Any();
+            if (utentiPresenti >= 1)
+            {
+                ViewBag.Errore = "La registrazione non è consentita, utente Admin già creato. Accedi con le tue credenziali.";
+            }
+            else
+            {
+                string salt = BCrypt.Net.BCrypt.GenerateSalt();
+                string passwordHash = BCrypt.Net.BCrypt.HashPassword(utente.PasswordHash, salt);
 
-        //    string salt = BCrypt.Net.BCrypt.GenerateSalt();
-        //    string passwordHash = BCrypt.Net.BCrypt.HashPassword(utente.PasswordHash, salt);
+                int idRuolo = 1;
 
-        //    // Imposta l'ID del ruolo in base all'utente
-        //    int idRuolo = primoUtente ? 1 : 3;
+                db.Utente.Add(new Utente
+                {
+                    ID_Ruolo = idRuolo,
+                    Nome = utente.Nome,
+                    Cognome = utente.Cognome,
+                    Ruolo = "Amministratore",
+                    Email = utente.Email,
+                    NumeroTelefono = utente.NumeroTelefono,
+                    Indirizzo = utente.Indirizzo,
+                    CodiceFiscale = utente.CodiceFiscale,
+                    PasswordHash = passwordHash,
+                    Salt = salt,
+                });
 
-        //    db.Utente.Add(new Utente
-        //    {
-        //        ID_Ruolo = idRuolo,
-        //        Nome = utente.Nome,
-        //        Cognome = utente.Cognome,
-        //        Ruolo = idRuolo == 1 ? "Amministratore" : "Cliente",
-        //        Email = utente.Email,
-        //        NumeroTelefono = utente.NumeroTelefono,
-        //        Indirizzo = utente.Indirizzo,
-        //        CodiceFiscale = utente.CodiceFiscale,
-        //        PasswordHash = passwordHash,
-        //        Salt = salt,
-        //    });
+                db.SaveChanges();
+            }
 
-        //    db.SaveChanges();
+            return RedirectToAction("Home");
+        }
 
-        //    return RedirectToAction("Home");
-        //}
 
         public ActionResult Profilo()
         {
@@ -240,10 +239,8 @@ namespace iManage360.Controllers
                 Session["Carrello"] = carrello;
             }
 
-            // Calcola il totale aggiornato
             decimal totaleAggiornato = carrello.Sum(item => item.Prodotto.Prezzo * item.Quantita);
 
-            // Restituisci il totale aggiornato come JSON
             return Json(new { totale = totaleAggiornato });
         }
 

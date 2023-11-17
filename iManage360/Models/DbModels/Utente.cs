@@ -20,29 +20,36 @@ namespace iManage360.Models
         public string FotoUrl { get; set; }
 
         [StringLength(50)]
+        [Required]
         public string Nome { get; set; }
 
         [StringLength(50)]
+        [Required]
         public string Cognome { get; set; }
 
         [StringLength(50)]
         public string Ruolo { get; set; }
 
         [StringLength(100)]
+        [Required]
         public string Email { get; set; }
 
         [StringLength(20)]
-        [DisplayName("Numero di Telefono")]
+        [DisplayName("Telefono")]
+        [Required]
         public string NumeroTelefono { get; set; }
 
         [StringLength(255)]
+        [Required]
         public string Indirizzo { get; set; }
         [StringLength(16)]
         [DisplayName("Codice Fiscale")]
+        [Required]
         public string CodiceFiscale { get; set; }
 
         [StringLength(60)]
         [DisplayName("Password")]
+        [Required]
         public string PasswordHash { get; set; }
 
         [StringLength(60)]

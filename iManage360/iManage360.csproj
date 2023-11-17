@@ -135,9 +135,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202311150040034_Aggiuntofattura.cs" />
-    <Compile Include="Migrations\202311150040034_Aggiuntofattura.designer.cs">
-      <DependentUpon>202311150040034_Aggiuntofattura.cs</DependentUpon>
+    <Compile Include="Migrations\202311171535091_c.cs" />
+    <Compile Include="Migrations\202311171535091_c.designer.cs">
+      <DependentUpon>202311171535091_c.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbModels\Attivita.cs" />
@@ -183,6 +183,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="iManage360_Intro.html" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -290,8 +291,8 @@
     <Content Include="Scripts\jquery-3.7.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202311150040034_Aggiuntofattura.resx">
-      <DependentUpon>202311150040034_Aggiuntofattura.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202311171535091_c.resx">
+      <DependentUpon>202311171535091_c.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
