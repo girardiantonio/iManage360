@@ -1,0 +1,97 @@
+﻿@*@model iManage360.Models.Utente
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<section id="sectionRegister" class="text-center text-lg-start">
+    <div class="container py-3">
+        <div class="row g-0 align-items-center d-flex justify-content-center">
+            <div class="col-lg-6 mb-lg-0">
+                <div class="card cascading-right" style="background: hsla(0, 0%, 100%, 0.55); backdrop-filter: blur(30px);">
+                    <div class="card-body shadow-5 text-center d-flex justify-content-center flex-column align-items-center">
+                        <h2 class="fw-bold">Register</h2>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="d-flex flex-column align-items-center">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="d-flex flex-column align-items-center">
+                                    <div>
+                                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div>
+                                        @Html.LabelFor(model => model.Cognome, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.Cognome, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Cognome, "", new { @class = "text-danger" })
+
+                                    </div>
+
+                                    <div>
+                                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                                    </div>
+
+                                    <div>
+                                        @Html.LabelFor(model => model.NumeroTelefono, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.NumeroTelefono, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.NumeroTelefono, "", new { @class = "text-danger" })
+
+                                    </div>
+
+                                    <div>
+                                        @Html.LabelFor(model => model.Indirizzo, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.Indirizzo, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Indirizzo, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div>
+                                        @Html.LabelFor(model => model.CodiceFiscale, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.CodiceFiscale, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CodiceFiscale, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div>
+                                        @Html.LabelFor(model => model.PasswordHash, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.PasswordHash, new { htmlAttributes = new { @class = "form-control", type = "password" } })
+                                        @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div>
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Registrati" class="btn btn-success mt-3 mb-3" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-danger"> @ViewBag.Errore </p>
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <p class="text-danger"> @ViewBag.Errore </p>
+                                </div>
+                            </div>
+                        }
+                        <div>
+                            Hai già un account? | @Html.ActionLink("Accedi", "Login")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 mb-lg-0 ">
+                <img src="~/Content/Home/login.jpg"
+                     class="rounded-4 shadow-4 h-100 w-100 d-none d-lg-block"
+                     alt="fotoRegister" />
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

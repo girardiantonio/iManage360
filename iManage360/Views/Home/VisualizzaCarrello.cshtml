@@ -1,0 +1,319 @@
+﻿@model IEnumerable<iManage360.Models.DbModels.CarrelloItem>
+
+@{
+    ViewBag.Title = "VisualizzaCarrello";
+}
+
+@using (Html.BeginForm("ConcludiOrdine", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    if (Model != null && Model.Any())
+    {
+        <div class="container">
+            <main>
+                <div class="py-5 text-center">
+                    <h2>Modulo di completamento dell'acquisto</h2>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-5 col-lg-4 order-md-last">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-body-secondary">Carrello</span>
+                            <span class="badge bg-secondary rounded-pill">3</span>
+                        </h4>
+
+                        <ul class="list-group mb-3">
+                            @for (var i = 0; i < Model.Count(); i++)
+                            {
+                                var carrelloItem = Model.ElementAt(i);
+                                <li class="list-group-item d-flex justify-content-between lh-sm">
+                                    <div class="d-flex">
+                                        <div class="d-flex flex-column">
+                                            <h6 class="my-0">@carrelloItem.Prodotto.NomeProdotto</h6>
+                                            <small class="text-body-secondary">@carrelloItem.Prodotto.Descrizione</small>
+                                            <span id="Prezzo_@i" class="fs-5 text-body-secondary"><strong>@carrelloItem.Prodotto.Prezzo €</strong></span>
+                                            @*<h6 class="my-0">Quantità disponibile: @carrelloItem.Prodotto.Quantita</h6>*@
+                                            <input type="number" name="quantita[@i]" value="@carrelloItem.Quantita" min="1" class="w-25 quantita-input form-control" />
+                                        </div>
+                                        @*<span id="Subtotale_@i" class="text-body-secondary">@Html.Raw((carrelloItem.Prodotto.Prezzo * carrelloItem.Quantita).ToString("0.00"))</span>*@
+                                        <span id="Subtotale_@i" class="text-body-secondary" style="display: none;">@Html.Raw((carrelloItem.Prodotto.Prezzo * carrelloItem.Quantita).ToString("0.00"))</span>
+                                    </div>
+                                </li>
+                            }
+
+                            <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
+                                <div class="text-success">
+                                    <h6 class="my-0">Codice Promozionale</h6>
+                                    <small>EXAMPLECODE</small>
+                                </div>
+                                <span class="text-success">-5 €</span>
+                            </li>
+
+                            @if (Model != null && Model.Any())
+                            {
+                                decimal totale = Model.Sum(item => item.Prodotto.Prezzo * item.Quantita);
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Totale (EUR)</span>
+                                    <div class="d-flex align-items-center">
+                                        <span id="Totale" class="fs-5">@totale</span>
+                                        <span class="fs-5 mx-1">€</span>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+
+                        <form class="card p-2">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Codice Promozionale">
+                                <button type="submit" class="btn btn-secondary">Verifica</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-7 col-lg-8">
+                        <h4 class="mb-3">Indirizzo di Fatturazione</h4>
+                        <form class="needs-validation" novalidate>
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <label for="firstName" class="form-label">Nome</label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                                    <div class="invalid-feedback">
+                                        Inserisci un nome valido.
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="lastName" class="form-label">Cognome</label>
+                                    <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                                    <div class="invalid-feedback">
+                                        Inserisci un cognome valido.
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="username" class="form-label">Email</label>
+                                    <div class="input-group has-validation">
+                                        <span class="input-group-text"></span>
+                                        <input type="text" class="form-control" id="username" placeholder="Email" required>
+                                        <div class="invalid-feedback">
+                                            Il nome utente è obbligatorio.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    @Html.LabelFor(model => model.First().IndirizzoConsegna, htmlAttributes: new { @class = "form-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.First().IndirizzoConsegna, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.First().IndirizzoConsegna, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    @Html.LabelFor(model => model.First().NoteSpeciali, htmlAttributes: new { @class = "form-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.First().NoteSpeciali, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.First().NoteSpeciali, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="email" class="form-label">Email <span class="text-body-secondary">(Opzionale)</span></label>
+                                    <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                                    <div class="invalid-feedback">
+                                        Inserisci un indirizzo email valido per ricevere gli aggiornamenti sulla spedizione.
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="address" class="form-label">Indirizzo</label>
+                                    <input type="text" class="form-control" id="address" placeholder="1234 Via Principale" required>
+                                    <div class="invalid-feedback">
+                                        Inserisci il tuo indirizzo di spedizione.
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="address2" class="form-label">Indirizzo 2 <span class="text-body-secondary">(Opzionale)</span></label>
+                                    <input type="text" class="form-control" id="address2" placeholder="Appartamento 24">
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label for="country" class="form-label">Paese</label>
+                                    <select class="form-select" id="country" required>
+                                        <option value="">Seleziona...</option>
+                                        <option>Italia</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Seleziona un paese valido.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="state" class="form-label">Regione</label>
+                                    <select class="form-select" id="state" required>
+                                        <option value="">Seleziona...</option>
+                                        <option>Lombardia</option>
+                                        <option>Lazio</option>
+                                        <option>Toscana</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Seleziona un nome di regione valido.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="zip" class="form-label">Codice Postale</label>
+                                    <input type="text" class="form-control" id="zip" placeholder="" required>
+                                    <div class="invalid-feedback">
+                                        Il codice postale è obbligatorio.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="same-address">
+                                <label class="form-check-label" for="same-address">L'indirizzo di spedizione è lo stesso dell'indirizzo di fatturazione.</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="save-info">
+                                <label class="form-check-label" for="save-info">Salva queste informazioni per la prossima volta</label>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <h4 class="mb-3">Metodo di Pagamento</h4>
+
+                            <div id="paymentForm" action="" method="post">
+                                <div class="my-3">
+                                    <div class="form-check">
+                                        <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required onclick="showCreditCardInfo()">
+                                        <label class="form-check-label" for="credit">Carta di Credito</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input id="cash" name="paymentMethod" type="radio" class="form-check-input" required onclick="hideCreditCardInfo()">
+                                        <label class="form-check-label" for="cash">Pagamento alla consegna</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required onclick="showPayPalButton()">
+                                        <label class="form-check-label" for="paypal">PayPal</label>
+                                    </div>
+                                </div>
+
+                                <div class="row gy-3" id="ccInfo">
+                                    <div class="col-md-6">
+                                        <label for="cc-name" class="form-label">Nome sulla Carta</label>
+                                        <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                                        <small class="text-body-secondary">Il nome completo come appare sulla carta</small>
+                                        <div class="invalid-feedback">
+                                            Il nome sulla carta è obbligatorio
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="cc-number" class="form-label">Numero di Carta</label>
+                                        <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                                        <div class="invalid-feedback">
+                                            Il numero della carta di credito è obbligatorio
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="cc-expiration" class="form-label">Scadenza</label>
+                                        <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                                        <div class="invalid-feedback">
+                                            La data di scadenza è obbligatoria
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="cc-cvv" class="form-label">CVV</label>
+                                        <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                                        <div class="invalid-feedback">
+                                            Il codice di sicurezza è obbligatorio
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" id="paypalButton" style="display:none;">
+                                    <button type="submit" class="btn btn-primary">Paga con PayPal</button>
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <button class="w-100 btn btn-success btn-lg" type="submit">Concludi Ordine</button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    }
+    else
+    {
+        <p>Il tuo carrello è vuoto.</p>
+    }
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+               $('.quantita-input').change(function () {
+        var index = $(this).closest('li').index();  // Adatta qui l'elemento padre
+        var nuovaQuantita = parseInt($(this).val());
+        var prezzo = parseFloat($('#Prezzo_' + index).text());
+
+        $.ajax({
+            url: '@Url.Action("AggiornaQuantita", "Home")',
+            type: 'POST',
+            data: { index: index, nuovaQuantita: nuovaQuantita },
+            success: function (result) {
+                // Aggiorna il totale sulla pagina
+                $('#Totale').text(result.totale.toFixed(2));
+                console.log("Quantità e totale aggiornati con successo");
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+        var nuovoImportoTotale = prezzo * nuovaQuantita;
+        $('#Subtotale_' + index).text(nuovoImportoTotale.toFixed(2));
+    });
+
+            // Chiamate alle funzioni quando cambia il metodo di pagamento
+            $('input[name="paymentMethod"]').change(function () {
+                if ($(this).attr('id') === 'credit') {
+                    showCreditCardInfo();
+                } else if ($(this).attr('id') === 'cash') {
+                    hideCreditCardInfo();
+                } else if ($(this).attr('id') === 'paypal') {
+                    showPayPalButton();
+                }
+            });
+
+            // Funzioni per gestire la visibilità delle informazioni di pagamento
+            function showCreditCardInfo() {
+                document.getElementById("ccInfo").style.display = "block";
+                document.getElementById("paypalButton").style.display = "none";
+                document.getElementById("paypalButton").disabled = true;
+            }
+
+            function hideCreditCardInfo() {
+                document.getElementById("ccInfo").style.display = "none";
+                document.getElementById("paypalButton").style.display = "none";
+                document.getElementById("paypalButton").disabled = true;
+            }
+
+            function showPayPalButton() {
+                document.getElementById("ccInfo").style.display = "none";
+                document.getElementById("paypalButton").style.display = "block";
+                document.getElementById("paypalButton").disabled = false;
+            }
+        });
+    </script>
+}
+

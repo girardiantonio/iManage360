@@ -1,0 +1,57 @@
+﻿@model IEnumerable<iManage360.Models.DbModels.Attivita>
+
+@{
+    ViewBag.Title = "ListaAttivita";
+}
+
+<h2 class="text-center">Lista Attivita</h2>
+<hr />
+
+<p>
+    @Html.ActionLink("Aggiungi Attivita", "CreaAttivita")
+</p>
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Utente.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataScadenza)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stato)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Utente.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descrizione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataScadenza)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stato)
+        </td>
+        <td>
+            @Html.ActionLink("Dettaglio", "DettaglioAttivita", new { id = item.ID }, new { @class = "btn btn-warning"})
+        </td>
+    </tr>
+}
+
+</table>

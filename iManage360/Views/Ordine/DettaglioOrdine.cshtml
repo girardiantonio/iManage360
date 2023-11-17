@@ -1,0 +1,41 @@
+﻿@model iManage360.Models.DbModels.Ordine
+
+@{
+    ViewBag.Title = "DettaglioOrdine";
+}
+
+<h2 class="text-center">Dettaglio Ordine</h2>
+<hr />
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Utente.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utente.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataOrdine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataOrdine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatoOrdine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatoOrdine)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Ritorna alla lista", "ListaOrdine")
+</p>

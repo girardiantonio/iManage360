@@ -1,0 +1,55 @@
+﻿@model iManage360.Models.DbModels.Ferie
+
+@{
+    ViewBag.Title = "EliminaFerie";
+}
+
+<h2 class="text-center">Elimina Ferie</h2>
+<h3 class="text-center">Sei sicuro di procedere?</h3>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Utente.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utente.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataInizio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataInizio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataFine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataFine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Approvate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Approvate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="mt-3 mb-3 form-actions no-color">
+            <input type="submit" value="Elimina" class="btn btn-danger" />
+        </div>
+    }
+            @Html.ActionLink("Ritorna alla lista", "ListaFerie")
+</div>

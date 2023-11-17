@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Applicazione ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+</head>
+<body>
+
+    @*
+        1 = Amministratore
+        2 = Dipendente
+        3 = Cliente
+    *@
+
+    @if (User.Identity.IsAuthenticated && (User.IsInRole("1")) || (User.IsInRole("2")))
+    {
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar-->
+            <div class="border-end bg-white" id="sidebar-wrapper">
+                <div class="sidebar-heading bg-light">
+                    @Html.ActionLink("iManage360", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    <img src="~/Content/imgs/logoLogin.png" alt="mdo" width="40" height="40" class="rounded-circle mx-1">
+                </div>
+                <div class="d-flex flex-column justify-content-between">
+                    <div class="list-group list-group-flush p-3">
+                        @if (User.IsInRole("1"))
+                        {
+                            <!-- Sezione Dashboard -->
+                            <a href="@Url.Action("Home", "Home")" class="text-decoration-none text-decoration-none py-2 ripple mb-3 text-dark text-dark" aria-current="true">
+                                <i class="fas fa-home"></i>
+                                <span>Dashboard</span>
+                            </a>
+
+                            <!-- Sezione Dashboard -->
+                            <a href="@Url.Action("Profilo", "Home")" class=" text-decoration-none py-2 ripple mb-3 text-dark" aria-current="true">
+                                <i class="fas fa-user"></i>
+                                <span>Profilo</span>
+                            </a>
+
+                            <!-- Sezione Dipendenti -->
+                            <a href="@Url.Action("ListaUtente", "Utente")" class=" text-decoration-none py-2 ripple mb-3 text-dark" aria-current="true">
+                                <i class="fas fa-users"></i>
+                                <span>Utenti</span>
+                            </a>
+
+                            <!-- Sezione Performance -->
+                            <a href="@Url.Action("ListaPerformance", "Performance")" class=" text-decoration-none py-2 ripple mb-3 text-dark" aria-current="true">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Performance</span>
+                            </a>
+
+                            <!-- Sezione Attività -->
+                            <a href="@Url.Action("ListaAttivita", "Attivita")" class=" text-decoration-none py-2 ripple mb-3 text-dark" aria-current="true">
+                                <i class="fas fa-boxes"></i>
+                                <span>Attività</span>
+                            </a>
+
+                            <!-- Sezione Stock Prodotti -->
+                            <a href="@Url.Action("ListaProdotto", "Prodotto")" class=" text-decoration-none py-2 ripple mb-3 text-dark" aria-current="true">
+                                <i class="fas fa-box"></i>
+                                <span>Prodotti</span>
+                            </a>
+                            <a href="@Url.Action("ListaMovimentoProdotto", "MovimentoProdotto")" class=" text-decoration-none py-2 ripple mb-3 text-dark" aria-current="true">
+                                <i class="fas fa-plane-departure"></i>
+                                <span>Tracking</span>
+                            </a>
+
+                            <!-- Sezione Stock Prodotti -->
+                            <a href="@Url.Action("ListaDocumento", "Documento")" class=" text-decoration-none py-2 ripple mb-3 text-dark" aria-current="true">
+                                <i class="fas fa-folder-open"></i>
+                                <span>Documenti</span>
+                            </a>
+
+                            <!-- Sezione Stock Prodotti -->
+                            <a href="@Url.Action("ListaFerie", "Ferie")" class=" text-decoration-none py-2 ripple mb-3 text-dark" aria-current="true">
+                                <i class="fas fa-hot-tub"></i>
+                                <span>Ferie</span>
+                            </a>
+                        }
+                        <!-- Altri link del menu -->
+                    </div>
+                </div>
+            </div>
+            <!-- Top navigation-->
+            <div class="d-flex flex-column w-100">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom bg-light">
+                    <div class="container-fluid">
+                        <button class="btn btn-primary" id="sidebarToggle"><span class="navbar-toggler-icon"></span></button>
+                        <div>
+                            <form class="d-flex form-inline my-lg-0 ml-auto" method="get" action="@Url.Action("ListaUtente", "Utente")">
+                                <input class="form-control my-2 my-sm-0" type="text" name="searchString" placeholder="Cerca" aria-label="Search">
+                                <button class="btn btn-outline-success mx-1 my-2 my-sm-0" type="submit">Cerca</button>
+                            </form>
+                        </div>
+                        <div class="dropdown-center dropdown">
+                            <a href="#" class="d-flex align-items-center justify-content-center m-0 link-body-emphasis text-decoration-none dropdown-toggle" style="bottom: 0" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/Content/imgs/logo.png" alt="mdo" width="40" height="40" class="rounded-circle mx-1">
+                                @User.Identity.Name
+                            </a>
+                            <ul class="dropdown-menu text-small shadow">
+                                <li>@Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Page content-->
+                <div class="p-3" @*id="" style="overflow-y: auto; top: 0; max-height: calc(100vh - 100px)"*@>
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <footer class="bg-dark d-flex text-light flex-column justify-content-center" style="height: 4em">
+            <div class="d-flex align-items-center justify-content-between mx-5">
+                <div>
+                    <a class="btn btn-outline-light" href="https://github.com/girardiantonio" role="button">
+                        <i class="fab fa-github"></i>
+                    </a>
+
+                    @*<a class="btn btn-outline-light" href="#!" role="button">
+                        <i class="fab fa-twitter"></i>
+                    </a>*@
+
+                    @*<a class="btn btn-outline-light" href="#!" role="button">
+                        <i class="fab fa-google"></i>
+                    </a>*@
+
+                    <a class="btn btn-outline-light" href="https://www.linkedin.com/in/antonio-girardi-226510269/" role="button">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+
+                    <a class="btn btn-outline-light" href="https://www.linkedin.com/in/antonio-girardi-226510269/" role="button">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <div>
+                    Copyright &copy; @DateTime.Now.Year Antonio Girardi - Applicazione sviluppata a fini didattici
+                </div>
+            </div>
+        </footer>
+    }
+    else
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            <nav class="p-3 d-flex justify-content-between navbar navbar-expand-lg navbar-lightbg-lightborder-bottom bg-light">
+                <div>
+                    <div>
+                        <form class="d-flex form-inline my-lg-0 ml-auto" method="get" action="@Url.Action("ListaUtente", "Utente")">
+                            <input class="form-control my-2 my-sm-0" type="text" name="searchString" placeholder="Cerca" aria-label="Search">
+                            <button class="btn btn-outline-success mx-1 my-2 my-sm-0" type="submit">Cerca</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="sidebar-heading bg-light">
+                    @Html.ActionLink("iManage360", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="d-flex align-items-center">
+                    <a href="@Url.Action("VisualizzaCarrello", "Home")">
+                        <i class="mx-3 fs-3 fas fa-shopping-cart"></i>
+                    </a>
+                    <div class="dropdown-center dropdown">
+                        <a href="#" class="d-flex align-items-center justify-content-center p-1 m-0 link-body-emphasis text-decoration-none dropdown-toggle" style="bottom: 0" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://github.com/mdo.png" alt="mdo" width="40" height="40" class="rounded-circle mx-1">
+                            <span class="mr-1">@User.Identity.Name</span>
+                        </a>
+                        <ul class="dropdown-menu text-small shadow">
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li>@Html.ActionLink("Profilo", "Profilo", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        }
+        <div class="p-3" @*id="" style="overflow-y: auto; top: 0; max-height: calc(100vh - 100px)"*@>
+            @RenderBody()
+        </div>
+    }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+<script>
+    window.addEventListener('DOMContentLoaded', event => {
+        // Trova l'elemento con l'ID 'sidebarToggle' nel corpo del documento
+        const sidebarToggle = document.body.querySelector('#sidebarToggle');
+        if (sidebarToggle) {
+            // Verifica se è stata memorizzata una preferenza per la barra laterale nel localStorage
+            if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
+                // Se è stata memorizzata una preferenza, attiva la classe per nascondere la barra laterale
+                document.body.classList.toggle('sb-sidenav-toggled');
+            }
+            // Aggiungi un gestore di eventi al click sull'elemento 'sidebarToggle'
+            sidebarToggle.addEventListener('click', event => {
+                event.preventDefault();
+                // Attiva o disattiva la classe per nascondere la barra laterale
+                document.body.classList.toggle('sb-sidenav-toggled');
+                // Salva la preferenza attuale nel localStorage
+                localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+            });
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/a7f72890b8.js" crossorigin="anonymous"></script>

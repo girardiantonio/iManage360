@@ -1,0 +1,31 @@
+﻿@model IEnumerable<iManage360.Models.DbModels.Prodotto>
+
+@{
+    ViewBag.Title = "ListaProdotto";
+}
+
+<h2 class="text-center">Lista dei prodotti</h2>
+<hr />
+
+<p>
+    @Html.ActionLink("Aggiungi prodotto", "CreaProdotto")
+</p>
+<hr />
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="~/Content/imgs/@item.FotoUrl" class="card-img-top" alt="Immagine del Prodotto">
+                <div class="card-body">
+                    <h5 class="card-title">@item.NomeProdotto</h5>
+                    <p class="card-text">Prezzo: @item.Prezzo €</p>
+                    <p class="card-text">Prezzo scontato: @item.PrezzoScontato €</p>
+                    <p class="card-text">Quantità disponibile: @item.Quantita</p>
+                    <a href="@Url.Action("DettaglioProdotto", new { id = item.ID })" class="btn btn-warning">Dettaglio</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

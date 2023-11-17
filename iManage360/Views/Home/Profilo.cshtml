@@ -1,0 +1,191 @@
+﻿@model iManage360.Models.Utente
+
+@{
+    ViewBag.Title = "Profilo";
+}
+
+<div class="mt-2">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div>
+                    <div class="card-body text-center">
+                        <img src="~/Content/imgs/@Model.FotoUrl" alt="avatar"
+                             class="rounded-circle img-fluid" style="width: 150px;">
+                        <p class="fs-3 text-muted mb-0">@Html.DisplayFor(model => model.Nome) @Html.DisplayFor(model => model.Cognome)</p>
+                        <p class="text-muted mb-1">@Html.DisplayFor(model => model.Ruolo)</p>
+                        <p class="text-muted mb-4">@Html.DisplayFor(model => model.Indirizzo)</p>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-sm btn-warning" id="modificaFotoButton">
+                                Modifica Foto
+                            </button>
+                            @Html.ActionLink("Richiesta Ferie", "CreaFerie", "Ferie", new { id = Model.ID }, new { @class = "btn btn-sm btn-success" })
+                            @Html.ActionLink("Supporto Ticket", "CreaTicket", "Ticket", new { id = Model.ID }, new { @class = "btn btn-sm btn-secondary" })
+                            <div class="modal fade" id="modificaFotoModal" tabindex="-1" role="dialog" aria-labelledby="modificaFotoModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modificaFotoModalLabel">Modifica Foto</h5>
+                                        </div>
+                                        <div class="modal-body" id="modificaFotoContent">
+                                            @using (Html.BeginForm("SalvaFoto", "Home", new { id = Model.ID }, FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.HiddenFor(model => model.ID)
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.FotoUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.FotoUrl, new { htmlAttributes = new { @class = "form-control", type = "file" } })
+                                                        @Html.ValidationMessageFor(model => model.FotoUrl, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <button type="submit" class="mt-3 mb-3 btn btn-primary">Salva Foto</button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card mb-4 mb-lg-0">
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush rounded-3">
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                            <i class="fas fa-globe fa-lg text-warning"></i>
+                            <p class="mb-0">
+                                <a href="#">
+                                    @Html.DisplayFor(model => model.Nome)@Html.DisplayFor(model => model.Cognome)@Html.Raw(".com")
+                                </a>
+                            </p>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                            <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                            <p class="mb-0">Mario Rossi</p>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                            <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                            <p class="mb-0">Mario Rossi</p>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                            <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                            <p class="mb-0">Mario Rossi</p>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                            <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                            <p class="mb-0">Mario Rossi</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Nome</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">@Html.DisplayFor(model => model.Nome)</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Cognome</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">@Html.DisplayFor(model => model.Cognome)</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Ruolo</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">@Html.DisplayFor(model => model.Ruolo)</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Cellulare</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">@Html.DisplayFor(model => model.NumeroTelefono)</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Indirizzo</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">@Html.DisplayFor(model => model.Indirizzo)</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Codice Fiscale</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">@Html.DisplayFor(model => model.CodiceFiscale)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4 mb-md-0">
+                        <div class="card-body overflow-auto" style="max-height: 300px;">
+                            <p class="mb-4">
+                                <span class="text-primary font-italic me-1">Attività</span> Personali
+                            </p>
+
+                            @foreach (var attivita in Model.Attivita)
+                            {
+                                <p class="mb-1" style="font-size: .77rem;">Nome: @attivita.Nome</p>
+                                <p class="mb-1" style="font-size: .77rem;">Descrizione: @attivita.Descrizione</p>
+                                <p class="mb-1" style="font-size: .77rem;">Data di Scadenza: @attivita.DataScadenza</p>
+                                <p class="mb-1" style="font-size: .77rem;">Stato: @attivita.Stato</p>
+                                <hr />
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-4 mb-md-0">
+                        <div class="card-body overflow-auto" style="max-height: 300px;">
+                            <p class="mb-4">
+                                <span class="text-primary font-italic me-1">Richieste</span> Ferie
+                            </p>
+                            @foreach (var ferie in Model.Ferie)
+                            {
+                                <p class="mb-1" style="font-size: .77rem;">Data inizio: @ferie.DataInizio</p>
+                                <p class="mb-1" style="font-size: .77rem;">Data fine: @ferie.DataFine</p>
+                                <p class="mb-1" style="font-size: .77rem;">Stato: @(ferie.Approvate ? "Approvata" : "Rifiutata")</p>
+                                <hr />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#modificaFotoButton").click(function () {
+                $("#modificaFotoModal").modal("show");
+            });
+        });
+    </script>
+}

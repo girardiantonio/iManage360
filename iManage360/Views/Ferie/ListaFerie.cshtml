@@ -1,0 +1,48 @@
+﻿@model IEnumerable<iManage360.Models.DbModels.Ferie>
+
+@{
+    ViewBag.Title = "ListaFerie";
+}
+
+<h2 class="text-center">Lista Ferie</h2>
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Utente.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataInizio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataFine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Approvate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Utente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInizio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataFine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Approvate)
+            </td>
+            <td>
+                @Html.ActionLink("Dettaglio", "DettaglioFerie", new { id = item.ID }, new { @class = "btn btn-warning" })
+            </td>
+        </tr>
+    }
+
+</table>

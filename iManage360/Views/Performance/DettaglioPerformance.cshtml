@@ -1,0 +1,50 @@
+﻿@model iManage360.Models.Performance
+
+@{
+    ViewBag.Title = "DettaglioPerformance";
+}
+
+<h2 class="text-center">Dettaglio Performance</h2>
+<hr />
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Utente.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utente.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valutazione)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valutazione)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descrizione)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modifica", "ModificaPerformance", new { id = Model.ID }, new { @class="btn btn-warning"})
+    @Html.ActionLink("Elimina", "EliminaPerformance", new { id = Model.ID }, new { @class="btn btn-danger"})
+    @Html.ActionLink("Ritorna alla lista", "ListaPerformance")
+</p>

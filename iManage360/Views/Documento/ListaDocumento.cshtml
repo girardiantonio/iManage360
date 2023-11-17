@@ -1,0 +1,57 @@
+﻿@model IEnumerable<iManage360.Models.DbModels.Documento>
+
+@{
+    ViewBag.Title = "ListaDocumento";
+}
+
+<h2 class="text-center">Lista Documento</h2>
+<hr />
+
+<p>
+    @Html.ActionLink("Aggiungi Documento", "CreaDocumento", "Documento", new { tipo = "Azienda" }, null)
+</p>
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeDocumento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataCreazione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DocumentoUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeDocumento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataCreazione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocumentoUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descrizione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categoria)
+        </td>
+        <td>
+            @Html.ActionLink("Dettaglio", "DettaglioDocumento", new { id=item.ID }, new { @class="btn btn-warning"})
+        </td>
+    </tr>
+}
+
+</table>

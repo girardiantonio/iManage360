@@ -1,0 +1,47 @@
+﻿@model iManage360.Models.DbModels.Ordine
+
+@{
+    ViewBag.Title = "EliminaOrdine";
+}
+
+<h2 class="text-center">Elimina Ordine</h2>
+<hr />
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Utente.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utente.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataOrdine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataOrdine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatoOrdine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatoOrdine)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Ritorna alla lista", "ListaOrdine")
+        </div>
+    }
+</div>

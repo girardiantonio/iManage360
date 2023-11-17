@@ -1,0 +1,51 @@
+﻿@model IEnumerable<iManage360.Models.Performance>
+
+@{
+    ViewBag.Title = "ListaPerformance";
+}
+
+<h2 class="text-center">Lista Performance</h2>
+<hr />
+
+<p>
+    @Html.ActionLink("Aggiungi Performance", "CreaPerformance")
+</p>
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Utente.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valutazione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Utente.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Data)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Valutazione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descrizione)
+        </td>
+        <td>
+            @Html.ActionLink("Dettaglio", "DettaglioPerformance", new { id=item.ID }, new { @class="btn btn-warning"})
+        </td>
+    </tr>
+}
+
+</table>

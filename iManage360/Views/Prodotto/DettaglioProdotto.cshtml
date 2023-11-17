@@ -1,0 +1,54 @@
+﻿@model iManage360.Models.DbModels.Prodotto
+
+@{
+    ViewBag.Title = "DettaglioProdotto";
+}
+
+<h2 class="text-center">Dettaglio Prodotto</h2>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <img src="~/Content/imgs/@Model.FotoUrl" class="img-fluid mx-auto" style="max-width: 500px;" alt="Immagine del Prodotto">
+        </div>
+        <div class="col-md-6">
+            <dl class="row">
+                <dt class="col-sm-4">Nome Prodotto:</dt>
+                <dd class="col-sm-8">@Model.NomeProdotto</dd>
+
+                <dt class="col-sm-4">Prezzo:</dt>
+                <dd class="col-sm-8">@Model.Prezzo €</dd>
+
+                <dt class="col-sm-4">Prezzo Scontato:</dt>
+                <dd class="col-sm-8">@Model.PrezzoScontato</dd>
+
+                <dt class="col-sm-4">Descrizione:</dt>
+                <dd class="col-sm-8">@Model.Descrizione</dd>
+
+                <dt class="col-sm-4">Quantità disponibile:</dt>
+                <dd class="col-sm-8">@Model.Quantita</dd>
+
+                <dt class="col-sm-4">Disponibilità:</dt>
+                <dd class="col-sm-8">@Model.Disponibilita</dd>
+
+                <dt class="col-sm-4">Valutazione Media:</dt>
+                <dd class="col-sm-8">@Model.ValutazioneMedia</dd>
+
+                <dt class="col-sm-4">Numero Ordini:</dt>
+                <dd class="col-sm-8">@Model.NumeroOrdini</dd>
+
+                <dt class="col-sm-4">Spese di Spedizione:</dt>
+                <dd class="col-sm-8">@Model.SpeseSpedizione</dd>
+
+                <dt class="col-sm-4">Categoria:</dt>
+                <dd class="col-sm-8">@Model.Categoria</dd>
+            </dl>
+        <p>
+            @Html.ActionLink("Modifica", "ModificaProdotto", new { id = Model.ID }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Elimina", "EliminaProdotto", new { id = Model.ID }, new { @class = "btn btn-danger" })
+        </p>
+            @Html.ActionLink("Ritorna alla lista", "ListaProdotto")
+        </div>
+    </div>
+</div>

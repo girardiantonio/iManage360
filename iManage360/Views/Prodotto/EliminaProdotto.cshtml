@@ -1,0 +1,79 @@
+﻿@model iManage360.Models.DbModels.Prodotto
+
+@{
+    ViewBag.Title = "EliminaProdotto";
+}
+
+<h2 class="text-center">Elimina Ferie</h2>
+<h3 class="text-center">Sei sicuro di procedere?</h3>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeProdotto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeProdotto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FotoUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FotoUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prezzo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prezzo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descrizione)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ubicazione)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ubicazione)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantita)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantita)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Disponibilita)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Disponibilita)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="mt-3 mb-3 form-actions no-color">
+            <input type="submit" value="Elimina" class="btn btn-danger" />
+        </div>
+    }
+    @Html.ActionLink("Ritorna alla lista", "ListaProdotto")
+</div>

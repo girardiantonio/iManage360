@@ -1,0 +1,47 @@
+﻿@model IEnumerable<iManage360.Models.DbModels.MovimentoProdotto>
+
+@{
+    ViewBag.Title = "ListaMovimentoProdotto";
+}
+
+<h2 class="text-center">Lista Movimenti Prodotti</h2>
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Prodotto.NomeProdotto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataMovimento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoMovimento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantita)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prodotto.NomeProdotto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataMovimento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoMovimento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantita)
+        </td>
+        @*<td>
+            @Html.ActionLink("Dettaglio", "DettaglioMovimentoProdotto", new { id=item.Id }, new { @Class="btn btn-warning"})
+        </td>*@
+    </tr>
+}
+
+</table>
